@@ -1,0 +1,7 @@
+parameters:
+#    ldc_bloggle.example.class: LDC\BloggleBundle\Example
+
+services:
+#    ldc_bloggle.example:
+#        class: %ldc_bloggle.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
