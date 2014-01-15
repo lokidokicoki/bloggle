@@ -1,3 +1,7 @@
 ldc_bloggle_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: LDCBloggleBundle:Default:index }
+
+ldc_bloggle_create:
+    pattern:  /create
+    defaults: { _controller: LDCBloggleBundle:Default:create }
