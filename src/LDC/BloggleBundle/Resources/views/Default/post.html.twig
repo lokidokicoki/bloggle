@@ -7,6 +7,7 @@
 	{{ post.title }}<p/>
 	{{ post.content }}<p/>
 	{{ post.created }}<p/>
-	<a href="{{ path('ldc_bloggle_create') }}">Create post</a>|
-	<a href="{{ path('ldc_bloggle_blog') }}">all posts</a>
+	<a href="{{ path('ldc_bloggle_post', {'id':blog.id}) }}">Create post</a>|
+	<a href="{{ path('ldc_bloggle_blog', {'id':blog.id}) }}">all posts</a>|
+	<a href="{{ path('ldc_bloggle_homepage') }}">Home</a>
 {% endblock %}

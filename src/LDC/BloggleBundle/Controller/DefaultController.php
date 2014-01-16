@@ -3,6 +3,7 @@
 namespace LDC\BloggleBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use LDC\BloggleBundle\Document\Blog;
 use LDC\BloggleBundle\Document\Post;
 use Symfony\Component\HttpFoundation\Response;
 use MongoDate;
@@ -10,33 +11,49 @@ use DateTime;
 
 class DefaultController extends Controller
 {
-    public function indexAction($name) {
-        return $this->render('LDCBloggleBundle:Default:index.html.twig', array('name' => $name));
+    public function indexAction() {
+		$dm = $this->get('doctrine_mongodb')->getManager();
+		$repo = $dm->getRepository('LDCBloggleBundle:Blog');
+		$blogs = $repo->findAll();
+        return $this->render('LDCBloggleBundle:Default:index.html.twig', array('blogs' => $blogs));
     }
 
-	public function createAction() {
+	public function newblogAction() {
+		$blog = new Blog();
+		$blog->setTitle('New Blog');
+
+		$dm = $this->get('doctrine_mongodb')->getManager();
+		$dm->persist($blog);
+		$dm->flush();
+		//return $this->redirect($this->generateUrl('ldc_bloggle_blog', array('id' => $blog->getId())));
+		return $this->blogAction($blog->getId());
+	}
+
+	public function postAction($id) {
 		$logger = $this->get('logger');
 		$post = new Post();
+
+		$dm = $this->get('doctrine_mongodb')->getManager();
+		$repo = $dm->getRepository('LDCBloggleBundle:Blog');
+		$blog = $repo->find($id);
+
 		$post->setTitle("My title");
 		$post->setContent("My content");
 		$post->setCreated(new MongoDate());
 
-		$dm = $this->get('doctrine_mongodb')->getManager();
 		$dm->persist($post);
+
+		$blog->addPost($post);
 		$dm->flush();
 
-
-		$bob = $dm->getRepository('LDCBloggleBundle:Post')->find($post->getId());
-
-		print_r($bob);
-		return $this->render('LDCBloggleBundle:Default:post.html.twig', array('post' => $bob));
+		return $this->render('LDCBloggleBundle:Default:post.html.twig', array('post' => $post, 'blog' => $blog));
 	}
 
-	public function blogAction() {
+	public function blogAction($id) {
 		$logger = $this->get('logger');
 		$dm = $this->get('doctrine_mongodb')->getManager();
-		$repo = $dm->getRepository('LDCBloggleBundle:Post');
-		$posts = $repo->findAll();
+		$repo = $dm->getRepository('LDCBloggleBundle:Blog');
+		$blog = $repo->find($id);
 /*
 		foreach ($posts as $post){
 			print_r($post);
@@ -44,7 +61,7 @@ class DefaultController extends Controller
 		unset($post);
  */
 
-		return $this->render('LDCBloggleBundle:Default:blog.html.twig', array('posts' => $posts));
+		return $this->render('LDCBloggleBundle:Default:blog.html.twig', array('blog' => $blog));
 	}
 
 	public function purgeAction() {
@@ -59,4 +76,5 @@ class DefaultController extends Controller
 
 		return $this->render('LDCBloggleBundle:Default:blog.html.twig', array('posts' => array()));
 	}
+
 }

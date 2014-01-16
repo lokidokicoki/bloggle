@@ -3,12 +3,14 @@
 
 {% block body %}
 	<h1>Bloggle Blog</h1>
-	{% for post in posts %}
+	{% for post in blog.posts %}
 		<h5>{{ post.title }}</h5>
 		Content: {{ post.content }}<p/>
 		Created: {{ post.getCreatedAsString() }}<p/>
 		Post id: {{ post.id }}<p/>
 		<hr>
 	{% endfor %}
-	<a href="{{ path('ldc_bloggle_create') }}">Create post</a> | <a href="{{path('ldc_bloggle_purge')}}">Purge All</a>
+	<a href="{{ path('ldc_bloggle_post', {'id':blog.id}) }}">Create post</a>|
+	<a href="{{path('ldc_bloggle_purge')}}">Purge All</a>|
+	<a href="{{ path('ldc_bloggle_homepage') }}">Home</a>
 {% endblock %}
