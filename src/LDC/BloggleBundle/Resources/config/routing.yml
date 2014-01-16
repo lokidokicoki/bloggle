@@ -9,3 +9,7 @@ ldc_bloggle_create:
 ldc_bloggle_blog:
     pattern:  /blog
     defaults: { _controller: LDCBloggleBundle:Default:blog }
+
+ldc_bloggle_purge:
+    pattern:  /purge
+    defaults: { _controller: LDCBloggleBundle:Default:purge }

@@ -6,9 +6,9 @@
 	{% for post in posts %}
 		<h5>{{ post.title }}</h5>
 		Content: {{ post.content }}<p/>
-		Created: {{ post.getCreatedString() }}<p/>
-		Post id: {{ post.getId() }}<p/>
+		Created: {{ post.getCreatedAsString() }}<p/>
+		Post id: {{ post.id }}<p/>
 		<hr>
 	{% endfor %}
-	<a href="{{ path('ldc_bloggle_create') }}">Create post</a>
+	<a href="{{ path('ldc_bloggle_create') }}">Create post</a> | <a href="{{path('ldc_bloggle_purge')}}">Purge All</a>
 {% endblock %}

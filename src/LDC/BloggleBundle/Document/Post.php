@@ -12,14 +12,17 @@ class Post
 	 * @MongoDB\Id
 	 */
 	protected $id;
+
 	/**
 	 * @MongoDB\String
 	 */
 	protected $title;
+
 	/**
 	 * @MongoDB\String
 	 */
 	protected $content;
+
 	/**
 	 * @MongoDB\Date
 	 */
@@ -79,11 +82,10 @@ class Post
         return $this->content;
     }
 
-
     /**
      * Set created
      *
-     * @param date $created
+     * @param string $created
      * @return self
      */
     public function setCreated($created)
@@ -95,20 +97,15 @@ class Post
     /**
      * Get created
      *
-     * @return date $created
+     * @return string $created
      */
     public function getCreated()
     {
         return $this->created;
     }
 
-    /**
-     * Get created as formatted string
-     *
-     * @return string created date string
-     */
-	public function getCreatedString(){
-		return date('Y/m/d H:i:s',$this->created->sec);
+	public function getCreatedAsString() {
+		//return date('Y/m/d H:i:s', $this->created->sec);
+		return $this->created->format('Y/m/d');
 	}
-
 }
