@@ -1,1 +1,8 @@
-Hello {{ name }}!
+{# src/LDC/BloggleBundle/Resources/views/Default/index.html.twig #}
+{% extends '::base.html.twig' %}
+
+{% block body %}
+	<h1>Bloggle Prototype</h1>
+    Hello {{ name }}!
+	<a href="{{ path('ldc_bloggle_create') }}">Create post</a>
+{% endblock %}
