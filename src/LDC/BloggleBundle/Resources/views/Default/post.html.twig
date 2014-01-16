@@ -1,0 +1,12 @@
+{# src/LDC/BloggleBundle/Resources/views/Default/post.html.twig #}
+{% extends '::base.html.twig' %}
+
+{% block body %}
+	<h1>Bloggle Post</h1>
+	Created id: {{ post.id }}<p/>
+	{{ post.title }}<p/>
+	{{ post.content }}<p/>
+	{{ post.getCreatedString() }}<p/>
+	<a href="{{ path('ldc_bloggle_create') }}">Create post</a>|
+	<a href="{{ path('ldc_bloggle_blog') }}">all posts</a>
+{% endblock %}
