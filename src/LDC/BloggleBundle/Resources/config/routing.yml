@@ -5,3 +5,7 @@ ldc_bloggle_homepage:
 ldc_bloggle_create:
     pattern:  /create
     defaults: { _controller: LDCBloggleBundle:Default:create }
+
+ldc_bloggle_blog:
+    pattern:  /blog
+    defaults: { _controller: LDCBloggleBundle:Default:blog }

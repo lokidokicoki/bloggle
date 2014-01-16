@@ -20,6 +20,10 @@ class Post
 	 * @MongoDB\String
 	 */
 	protected $content;
+	/**
+	 * @MongoDB\Date
+	 */
+	protected $created;
 
     /**
      * Get id
@@ -74,4 +78,37 @@ class Post
     {
         return $this->content;
     }
+
+
+    /**
+     * Set created
+     *
+     * @param date $created
+     * @return self
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return date $created
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Get created as formatted string
+     *
+     * @return string created date string
+     */
+	public function getCreatedString(){
+		return date('Y/m/d H:i:s',$this->created->sec);
+	}
+
 }
