@@ -1,0 +1,7 @@
+parameters:
+#    ldc_account.example.class: LDC\AccountBundle\Example
+
+services:
+#    ldc_account.example:
+#        class: %ldc_account.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

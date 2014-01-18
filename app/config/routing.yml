@@ -1,3 +1,7 @@
+ldc_account:
+    resource: "@LDCAccountBundle/Resources/config/routing.yml"
+    prefix:   /
+
 ldc_bloggle:
     resource: "@LDCBloggleBundle/Resources/config/routing.yml"
     prefix:   /

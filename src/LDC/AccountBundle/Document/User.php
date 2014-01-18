@@ -1,12 +1,16 @@
 <?php
-namespace LDC\BloggleBundle\Document;
+namespace LDC\AccountBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique as MongoDBUnique;
+
 
 /**
- * @MongoDB\Document
+ * @MongoDB\Document(collection="users")
+ * @MongoDBUnique(fields="email")
  */
-class User
+class User 
 {
 	/**
 	 * @MongoDB\Id
@@ -14,8 +18,15 @@ class User
 	protected $id;
 	/**
 	 * @MongoDB\String
+	 * @Assert\NotBlank()
 	 */
 	protected $username;
+	/**
+	 * @MongoDB\String
+	 * @Assert\NotBlank()
+	 * @Assert\Email()
+	 */
+	protected $email;
 	/**
 	 * @MongoDB\String
 	 */
@@ -26,6 +37,7 @@ class User
 	protected $lastname;
 	/**
 	 * @MongoDB\String
+	 * @Assert\NotBlank()
 	 */
 	protected $password;
 
@@ -113,7 +125,8 @@ class User
      */
     public function setPassword($password)
     {
-        $this->password = $password;
+		// nt very safe encryption, poss. use sha512?
+        $this->password = sha1($password);
         return $this;
     }
 
@@ -126,4 +139,27 @@ class User
     {
         return $this->password;
     }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return self
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string $email
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
 }
+?>

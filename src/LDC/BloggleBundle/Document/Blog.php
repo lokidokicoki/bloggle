@@ -129,3 +129,4 @@ class Blog
         $this->posts->removeElement($post);
     }
 }
+?>

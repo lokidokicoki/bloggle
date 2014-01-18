@@ -18,6 +18,7 @@ class AppKernel extends Kernel
 			new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new LDC\BloggleBundle\LDCBloggleBundle(),
+            new LDC\AccountBundle\LDCAccountBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
