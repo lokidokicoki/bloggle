@@ -18,22 +18,48 @@ class BlogController extends Controller
         return $this->render('LDCBloggleBundle:Blog:index.html.twig', array('blogs' => $blogs));
     }
 
-	public function newblogAction() {
-		$blog = new Blog();
-		$blog->setTitle('New Blog');
+	public function newAction($bad=NULL) {
+		$form = $this->createFormBuilder()
+			->setAction($this->generateUrl('ldc_bloggle_created'))
+			->setMethod('POST')
+            ->add('title', 'text')
+            ->add('save', 'submit')
+            ->getForm();
 
-		$dm = $this->get('doctrine_mongodb')->getManager();
-		$dm->persist($blog);
-		$dm->flush();
-		//return $this->redirect($this->generateUrl('ldc_bloggle_blog', array('id' => $blog->getId())));
-		return $this->blogAction($blog->getId());
+        return $this->render('LDCBloggleBundle:Blog:new.html.twig', array(
+            'form' => $form->createView(),
+			'bad' => $bad
+        ));
 	}
 
-	public function blogAction($id) {
+	public function createdAction() {
+		$dm = $this->get('doctrine_mongodb')->getManager();
+		$repo = $dm->getRepository('LDCBloggleBundle:Blog');
+		$request = $this->getRequest();
+
+		// get blog title from request
+		$title = $request->request->get('form')['title'];
+
+		// check if already exists
+		if ($repo->findOneByTitle(array('title'=>$title))){
+			return $this->newAction($title);
+		}else{
+			$blog = new Blog();
+			$blog->setTitle($title);
+
+			$dm = $this->get('doctrine_mongodb')->getManager();
+			$dm->persist($blog);
+			$dm->flush();
+			//return $this->redirect($this->generateUrl('ldc_bloggle_blog', array('id' => $blog->getId())));
+			return $this->blogAction($blog->getTitle());
+		}
+	}
+
+	public function blogAction($title) {
 		$logger = $this->get('logger');
 		$dm = $this->get('doctrine_mongodb')->getManager();
 		$repo = $dm->getRepository('LDCBloggleBundle:Blog');
-		$blog = $repo->find($id);
+		$blog = $repo->findOneByTitle($title);
 /*
 		foreach ($posts as $post){
 			print_r($post);

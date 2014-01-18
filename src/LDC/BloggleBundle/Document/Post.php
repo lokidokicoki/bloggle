@@ -109,4 +109,3 @@ class Post
 		return $this->created->format('Y/m/d');
 	}
 }
-?>

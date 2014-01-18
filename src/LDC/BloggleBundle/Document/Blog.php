@@ -2,9 +2,12 @@
 namespace LDC\BloggleBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique as MongoDBUnique;
 
 /**
  * @MongoDB\Document
+ * @MongoDBUnique(fields="title")
  */
 class Blog
 {
@@ -20,6 +23,7 @@ class Blog
 
 	/**
 	 * @MongoDB\String
+	 * @Assert\NotBlank()
 	 */
 	protected $title;
 
@@ -129,4 +133,3 @@ class Blog
         $this->posts->removeElement($post);
     }
 }
-?>

@@ -3,13 +3,17 @@ ldc_bloggle_homepage:
     defaults: { _controller: LDCBloggleBundle:Blog:index }
 
 ldc_bloggle_post:
-    pattern:  /blog/{id}/post
+    pattern:  /blog/{title}/post
     defaults: { _controller: LDCBloggleBundle:Post:post }
 
 ldc_bloggle_newblog:
     pattern:  /newblog
-    defaults: { _controller: LDCBloggleBundle:Blog:newblog }
+    defaults: { _controller: LDCBloggleBundle:Blog:new}
+
+ldc_bloggle_created:
+    pattern:  /created
+    defaults: { _controller: LDCBloggleBundle:Blog:created}
 
 ldc_bloggle_blog:
-    pattern:  /blog/{id}
+    pattern:  /blog/{title}
     defaults: { _controller: LDCBloggleBundle:Blog:blog }

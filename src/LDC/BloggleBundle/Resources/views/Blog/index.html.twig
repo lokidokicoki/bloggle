@@ -6,9 +6,9 @@
 	Welcome to bloggle!
 	{% if blogs.count > 0 %}
 	<p/>choose a blog
-		<ul>
+	<ul>
 		{% for blog in blogs %}
-		<li><a href="{{ path('ldc_bloggle_blog' , {'id': blog.id}) }}">{{blog.title}} : {{blog.id}} : posts {{blog.posts.count}}</a></li>
+		<li><a href="{{ path('ldc_bloggle_blog' , {'title': blog.title}) }}">{{blog.title}} : posts {{blog.posts.count}}</a></li>
 		{% endfor %}
 	</ul>
 	{% endif %}

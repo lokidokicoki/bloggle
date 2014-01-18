@@ -11,13 +11,13 @@ use DateTime;
 
 class PostController extends Controller
 {
-	public function postAction($id) {
+	public function postAction($title) {
 		$logger = $this->get('logger');
 		$post = new Post();
 
 		$dm = $this->get('doctrine_mongodb')->getManager();
 		$repo = $dm->getRepository('LDCBloggleBundle:Blog');
-		$blog = $repo->find($id);
+		$blog = $repo->findOneByTitle($title);
 
 		$post->setTitle("My title");
 		$post->setContent("My content");
