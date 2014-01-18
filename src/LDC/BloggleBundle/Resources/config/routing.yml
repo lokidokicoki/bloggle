@@ -1,19 +1,15 @@
 ldc_bloggle_homepage:
     pattern:  /
-    defaults: { _controller: LDCBloggleBundle:Default:index }
+    defaults: { _controller: LDCBloggleBundle:Blog:index }
 
 ldc_bloggle_post:
     pattern:  /blog/{id}/post
-    defaults: { _controller: LDCBloggleBundle:Default:post }
+    defaults: { _controller: LDCBloggleBundle:Post:post }
 
 ldc_bloggle_newblog:
     pattern:  /newblog
-    defaults: { _controller: LDCBloggleBundle:Default:newblog }
+    defaults: { _controller: LDCBloggleBundle:Blog:newblog }
 
 ldc_bloggle_blog:
     pattern:  /blog/{id}
-    defaults: { _controller: LDCBloggleBundle:Default:blog }
-
-ldc_bloggle_purge:
-    pattern:  /purge
-    defaults: { _controller: LDCBloggleBundle:Default:purge }
+    defaults: { _controller: LDCBloggleBundle:Blog:blog }
