@@ -14,5 +14,10 @@
 	{% endif %}
 	<hr>
 	<a href="{{ path('ldc_bloggle_newblog') }}">create a blog</a>|
-	<a href="{{ path('ldc_account_register') }}">register</a>
+	<a href="{{ path('ldc_account_register')}}">register</a>|
+	<a href="{{ path('ldc_account_login')}}">login</a>
+	{% if is_granted('ROLE') %}
+	<p/>
+	<p>Username: {{ app.user.username }}</p>
+	{% endif %}
 {% endblock %}

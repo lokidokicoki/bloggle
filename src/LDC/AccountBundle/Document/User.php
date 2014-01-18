@@ -3,6 +3,8 @@ namespace LDC\AccountBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique as MongoDBUnique;
 
 
@@ -10,7 +12,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique as MongoDBUnique;
  * @MongoDB\Document(collection="users")
  * @MongoDBUnique(fields="email")
  */
-class User 
+class User implements UserInterface, EquatableInterface
 {
 	/**
 	 * @MongoDB\Id
@@ -25,8 +27,15 @@ class User
 	 * @MongoDB\String
 	 * @Assert\NotBlank()
 	 * @Assert\Email()
+	 * @MongoDB\Index(unique=true, order="asc")
 	 */
 	protected $email;
+
+	/**
+	 * @MongoDB\String
+	 */
+	protected $salt;
+
 	/**
 	 * @MongoDB\String
 	 */
@@ -41,6 +50,15 @@ class User
 	 */
 	protected $password;
 
+	/**
+	 * @MongoDB\Collection
+	 */
+	protected $roles;
+
+	public function __construct(){
+		$this->salt = "";
+		$this->roles=array('ROLE_USER');
+	}
     /**
      * Get id
      *
@@ -51,6 +69,16 @@ class User
         return $this->id;
     }
 
+    /**
+     * Get salt
+     *
+	 * @inheritDoc
+     * @return string $salt
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
     /**
      * Set username
      *
@@ -66,6 +94,7 @@ class User
     /**
      * Get username
      *
+	 * @inheritDoc
      * @return string $username
      */
     public function getUsername()
@@ -120,6 +149,7 @@ class User
     /**
      * Set password
      *
+	 * @inheritDoc
      * @param string $password
      * @return self
      */
@@ -161,5 +191,49 @@ class User
     {
         return $this->email;
     }
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getRoles(){
+		return $this->roles;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function eraseCredentials() {
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function isEqualTo(UserInterface $user)
+    {
+        return $user->getUsername() === $this->username;
+    }
+
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     * @return self
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+        return $this;
+    }
+
+    /**
+     * Set roles
+     *
+     * @param collection $roles
+     * @return self
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+        return $this;
+    }
 }
-?>
