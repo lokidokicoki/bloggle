@@ -60,13 +60,15 @@ class BlogController extends Controller
 		$dm = $this->get('doctrine_mongodb')->getManager();
 		$repo = $dm->getRepository('LDCBloggleBundle:Blog');
 		$blog = $repo->findOneByTitle($title);
+
 		$posts = $blog->getPosts()->toArray();
 		usort($posts, function($a, $b) {
-			if ($a->getCreated() > $b->getCreated()) {
+			if ($a->getId() > $b->getId()) {
 				return -1;
 			}
 		});
 		$blog->setPosts($posts);
+		$dm->flush();
 /*
 		foreach ($posts as $post){
 			print_r($post);
