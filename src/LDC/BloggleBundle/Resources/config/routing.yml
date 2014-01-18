@@ -6,6 +6,10 @@ ldc_bloggle_post:
     pattern:  /blog/{title}/post
     defaults: { _controller: LDCBloggleBundle:Post:post }
 
+ldc_bloggle_posted:
+    pattern:  /blog/{title}/posted
+    defaults: { _controller: LDCBloggleBundle:Post:posted }
+
 ldc_bloggle_newblog:
     pattern:  /newblog
     defaults: { _controller: LDCBloggleBundle:Blog:new}

@@ -9,6 +9,7 @@
 		Content: {{ post.content }}<p/>
 		Created: {{ post.getCreatedAsString() }}<p/>
 		Post id: {{ post.id }}<p/>
+		{# <a href="{{ path('ldc_bloggle_edit'), {'id':post.id, 'title':blog.title} }}">Edit</a> #}
 		<hr>
 	{% endfor %}
 	<a href="{{ path('ldc_bloggle_post', {'title':blog.title}) }}">Create post</a>|
